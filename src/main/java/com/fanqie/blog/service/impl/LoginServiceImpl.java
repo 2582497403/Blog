@@ -2,10 +2,12 @@ package com.fanqie.blog.service.impl;
 
 import com.fanqie.blog.entity.LoginUser;
 import com.fanqie.blog.entity.TbUser;
+import com.fanqie.blog.exception.BusinessException;
 import com.fanqie.blog.service.LoginService;
 import com.fanqie.blog.utils.JwtUtil;
 import com.fanqie.blog.utils.RedisCache;
 import com.fanqie.blog.utils.Result;
+import io.jsonwebtoken.lang.Strings;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
@@ -27,6 +29,9 @@ public class LoginServiceImpl implements LoginService {
     @Override
     public Result<HashMap<String,String>> login(TbUser user) {
         HashMap<String,String> map = new HashMap<>();
+        if(Objects.isNull(user)|| !Strings.hasText(user.getUsername()) || !Strings.hasText(user.getPassword())){
+            throw new BusinessException("账号数据异常");
+        }
         UsernamePasswordAuthenticationToken authenticationToken = new UsernamePasswordAuthenticationToken(user.getUsername(),user.getPassword());
         try {
             Authentication authenticate = authenticationManager.authenticate(authenticationToken);
