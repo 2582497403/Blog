@@ -19,7 +19,6 @@ public class AuthController {
 
     @PostMapping("/login")
     public Result<HashMap<String,String>> login(@RequestBody TbUser user) {
-        System.out.println("sdadasda");
         return loginService.login(user);
     }
 

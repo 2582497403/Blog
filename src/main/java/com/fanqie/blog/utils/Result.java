@@ -1,7 +1,6 @@
 package com.fanqie.blog.utils;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.*;
-
 import java.io.Serializable;
 /**
  *   接口返回数据格式
