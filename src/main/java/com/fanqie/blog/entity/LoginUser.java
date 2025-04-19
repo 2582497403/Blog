@@ -10,8 +10,6 @@ import java.util.Collection;
 import java.util.List;
 
 @Data
-@NoArgsConstructor
-@AllArgsConstructor
 public class LoginUser implements UserDetails {
 
     /**
