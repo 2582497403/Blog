@@ -1,8 +1,8 @@
 package com.fanqie.blog.service.impl;
 
-import com.fanqie.blog.entity.TbRoles;
-import com.fanqie.blog.mapper.TbRolesMapper;
-import com.fanqie.blog.service.TbRolesService;
+import com.fanqie.blog.entity.TbCategory;
+import com.fanqie.blog.mapper.TbCategoryMapper;
+import com.fanqie.blog.service.TbCategoryService;
 import org.springframework.stereotype.Service;
 import org.springframework.beans.factory.annotation.Autowired;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
@@ -14,15 +14,15 @@ import java.util.Map;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 
 /**
- * (TbRoles)表服务实现类
+ * (TbCategory)表服务实现类
  *
  * @author makejava
- * @since 2025-05-08 08:52:59
+ * @since 2025-05-08 08:48:49
  */
-@Service("tbRolesService")
-public class TbRolesServiceImpl extends ServiceImpl<TbRolesMapper, TbRoles> implements TbRolesService {
+@Service("tbCategoryService")
+public class TbCategoryServiceImpl extends ServiceImpl<TbCategoryMapper, TbCategory> implements TbCategoryService {
     @Autowired
-    private TbRolesMapper tbRolesMapper;
+    private TbCategoryMapper tbCategoryMapper;
 
     /**
      * 通过ID查询单条数据
@@ -31,16 +31,16 @@ public class TbRolesServiceImpl extends ServiceImpl<TbRolesMapper, TbRoles> impl
      * @return 实例对象
      */
     @Override
-    public TbRoles queryById(Long id) {
-        return this.tbRolesMapper.queryById(id);
+    public TbCategory queryById(Long id) {
+        return this.tbCategoryMapper.queryById(id);
     }
 
     /**
      * 分页查询
      */
     @Override
-    public Page<TbRoles> queryByPage(int page, int size, Map<String, Object> params, String orderBy, boolean isAsc) {
-        QueryWrapper<TbRoles> queryWrapper = new QueryWrapper<>();
+    public Page<TbCategory> queryByPage(int page, int size, Map<String, Object> params, String orderBy, boolean isAsc) {
+        QueryWrapper<TbCategory> queryWrapper = new QueryWrapper<>();
 
         // 动态查询条件
         for (Map.Entry<String, Object> entry : params.entrySet()) {
@@ -61,31 +61,31 @@ public class TbRolesServiceImpl extends ServiceImpl<TbRolesMapper, TbRoles> impl
         }
 
         // 分页查询
-        return this.page(new Page<TbRoles>(page, size), queryWrapper);
+        return this.page(new Page<TbCategory>(page, size), queryWrapper);
     }
 
     /**
      * 新增数据
      *
-     * @param tbRoles 实例对象
+     * @param tbCategory 实例对象
      * @return 实例对象
      */
     @Override
-    public TbRoles insert(TbRoles tbRoles) {
-        this.tbRolesMapper.insert(tbRoles);
-        return tbRoles;
+    public TbCategory insert(TbCategory tbCategory) {
+        this.tbCategoryMapper.insert(tbCategory);
+        return tbCategory;
     }
 
     /**
      * 修改数据
      *
-     * @param tbRoles 实例对象
+     * @param tbCategory 实例对象
      * @return 实例对象
      */
     @Override
-    public TbRoles update(TbRoles tbRoles) {
-        this.tbRolesMapper.update(tbRoles);
-        return this.queryById(tbRoles.getId());
+    public TbCategory update(TbCategory tbCategory) {
+        this.tbCategoryMapper.update(tbCategory);
+        return this.queryById(tbCategory.getId());
     }
 
     /**
@@ -96,6 +96,6 @@ public class TbRolesServiceImpl extends ServiceImpl<TbRolesMapper, TbRoles> impl
      */
     @Override
     public boolean deleteById(Long id) {
-        return this.tbRolesMapper.deleteById(id) > 0;
+        return this.tbCategoryMapper.deleteById(id) > 0;
     }
 }

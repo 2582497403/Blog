@@ -1,29 +1,31 @@
 package com.fanqie.blog.controller;
 
-import com.fanqie.blog.entity.TbPermissions;
-import com.fanqie.blog.service.TbPermissionsService;
+import com.fanqie.blog.entity.TbArticle;
+import com.fanqie.blog.service.TbArticleService;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
+import com.fanqie.blog.utils.Result;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 /**
- * (TbPermissions)表控制层
+ * (TbArticle)表控制层
  *
  * @author makejava
- * @since 2025-05-08 08:52:43
+ * @since 2025-05-07 12:56:18
  */
 @RestController
-@RequestMapping("tbPermissions")
-public class TbPermissionsController {
+@RequestMapping("tbArticle")
+public class TbArticleController {
     /**
      * 服务对象
      */
     @Autowired
-    private TbPermissionsService tbPermissionsService;
+    private TbArticleService tbArticleService;
 
     /**
      * 通用分页查询接口
@@ -36,7 +38,7 @@ public class TbPermissionsController {
      * @return 分页结果
      */
     @GetMapping("/page")
-    public Page<TbPermissions> queryByPage(
+    public Result<List<TbArticle>> queryByPage(
             @RequestParam(defaultValue = "1") int page,
             @RequestParam(defaultValue = "10") int size,
             @RequestParam(required = false) String orderBy,
@@ -46,7 +48,7 @@ public class TbPermissionsController {
         Map<String, Object> params = new HashMap<>();
         params.put("status", status);
 
-        return this.tbPermissionsService.queryByPage(page, size, params, orderBy, isAsc);
+        return Result.ok(tbArticleService.queryByPage(page, size, params, orderBy, isAsc));
     }
 
     /**
@@ -56,30 +58,30 @@ public class TbPermissionsController {
      * @return 单条数据
      */
     @GetMapping("{id}")
-    public ResponseEntity<TbPermissions> queryById(@PathVariable("id") Long id) {
-        return ResponseEntity.ok(this.tbPermissionsService.queryById(id));
+    public ResponseEntity<TbArticle> queryById(@PathVariable("id") Long id) {
+        return ResponseEntity.ok(this.tbArticleService.queryById(id));
     }
 
     /**
      * 新增数据
      *
-     * @param tbPermissions 实体
+     * @param tbArticle 实体
      * @return 新增结果
      */
     @PostMapping
-    public ResponseEntity<TbPermissions> add(TbPermissions tbPermissions) {
-        return ResponseEntity.ok(this.tbPermissionsService.insert(tbPermissions));
+    public ResponseEntity<TbArticle> add(TbArticle tbArticle) {
+        return ResponseEntity.ok(this.tbArticleService.insert(tbArticle));
     }
 
     /**
      * 编辑数据
      *
-     * @param tbPermissions 实体
+     * @param tbArticle 实体
      * @return 编辑结果
      */
     @PutMapping
-    public ResponseEntity<TbPermissions> edit(TbPermissions tbPermissions) {
-        return ResponseEntity.ok(this.tbPermissionsService.update(tbPermissions));
+    public ResponseEntity<TbArticle> edit(TbArticle tbArticle) {
+        return ResponseEntity.ok(this.tbArticleService.update(tbArticle));
     }
 
     /**
@@ -90,7 +92,7 @@ public class TbPermissionsController {
      */
     @DeleteMapping
     public ResponseEntity<Boolean> deleteById(Long id) {
-        return ResponseEntity.ok(this.tbPermissionsService.deleteById(id));
+        return ResponseEntity.ok(this.tbArticleService.deleteById(id));
     }
 
 }

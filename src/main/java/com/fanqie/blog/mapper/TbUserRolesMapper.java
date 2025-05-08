@@ -1,6 +1,6 @@
 package com.fanqie.blog.mapper;
 
-import com.fanqie.blog.entity.TbPermissions;
+import com.fanqie.blog.entity.TbUserRoles;
 import org.apache.ibatis.annotations.Param;
 import org.springframework.data.domain.Pageable;
 
@@ -9,78 +9,78 @@ import java.util.List;
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 
 /**
- * (TbPermissions)表数据库访问层
+ * (TbUserRoles)表数据库访问层
  *
  * @author makejava
- * @since 2025-05-08 08:52:43
+ * @since 2025-05-08 08:50:09
  */
-public interface TbPermissionsMapper extends BaseMapper<TbPermissions> {
+public interface TbUserRolesMapper extends BaseMapper<TbUserRoles> {
 
     /**
      * 通过ID查询单条数据
      *
-     * @param id 主键
+     * @param userId 主键
      * @return 实例对象
      */
-    TbPermissions queryById(Long id);
+    TbUserRoles queryById(Integer userId);
 
     /**
      * 查询指定行数据
      *
-     * @param tbPermissions 查询条件
-     * @param pageable      分页对象
+     * @param tbUserRoles 查询条件
+     * @param pageable    分页对象
      * @return 对象列表
      */
-    List<TbPermissions> queryAllByLimit(TbPermissions tbPermissions, @Param("pageable") Pageable pageable);
+    List<TbUserRoles> queryAllByLimit(TbUserRoles tbUserRoles, @Param("pageable") Pageable pageable);
 
     /**
      * 统计总行数
      *
-     * @param tbPermissions 查询条件
+     * @param tbUserRoles 查询条件
      * @return 总行数
      */
-    long count(TbPermissions tbPermissions);
+    long count(TbUserRoles tbUserRoles);
 
     /**
      * 新增数据
      *
-     * @param tbPermissions 实例对象
+     * @param tbUserRoles 实例对象
      * @return 影响行数
      */
-    int insert(TbPermissions tbPermissions);
+    int insert(TbUserRoles tbUserRoles);
 
     /**
      * 批量新增数据（MyBatis原生foreach方法）
      *
-     * @param entities List<TbPermissions> 实例对象列表
+     * @param entities List<TbUserRoles> 实例对象列表
      * @return 影响行数
      */
-    int insertBatch(@Param("entities") List<TbPermissions> entities);
+    int insertBatch(@Param("entities") List<TbUserRoles> entities);
 
     /**
      * 批量新增或按主键更新数据（MyBatis原生foreach方法）
      *
-     * @param entities List<TbPermissions> 实例对象列表
+     * @param entities List<TbUserRoles> 实例对象列表
      * @return 影响行数
      * @throws org.springframework.jdbc.BadSqlGrammarException 入参是空List的时候会抛SQL语句错误的异常，请自行校验入参
      */
-    int insertOrUpdateBatch(@Param("entities") List<TbPermissions> entities);
+    int insertOrUpdateBatch(@Param("entities") List<TbUserRoles> entities);
 
     /**
      * 修改数据
      *
-     * @param tbPermissions 实例对象
+     * @param tbUserRoles 实例对象
      * @return 影响行数
      */
-    int update(TbPermissions tbPermissions);
+    int update(TbUserRoles tbUserRoles);
 
     /**
      * 通过主键删除数据
      *
-     * @param id 主键
+     * @param userId 主键
      * @return 影响行数
      */
-    int deleteById(Long id);
+    int deleteById(Integer userId);
 
 }
 

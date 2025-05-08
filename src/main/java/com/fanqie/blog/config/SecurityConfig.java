@@ -5,6 +5,7 @@ import com.fanqie.blog.service.impl.UserDetailsServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.core.annotation.Order;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.dao.DaoAuthenticationProvider;
 import org.springframework.security.config.annotation.authentication.configuration.AuthenticationConfiguration;
@@ -14,6 +15,12 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
+import org.springframework.web.cors.CorsConfigurationSource;
+import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.Configuration;
+import org.springframework.web.cors.CorsConfiguration;
+import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
+import org.springframework.web.filter.CorsFilter;
 
 @Configuration // 标记为配置类，用于定义 Spring Bean
 @EnableWebSecurity // 启用 Spring Security 的 Web 安全功能
@@ -23,6 +30,8 @@ public class SecurityConfig {
     private JwtAuthenticationFilter jwtAuthenticationFilter;
     @Autowired
     private UserDetailsServiceImpl userDetailsService;
+    @Autowired
+    private CorsConfigurationSource corsConfigurationSource;
 
     /**
      * @Bean
@@ -57,19 +66,12 @@ public class SecurityConfig {
     @Bean
     public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
         http
+                .cors(cors -> cors.configurationSource(corsConfigurationSource))
                 .csrf(csrf -> csrf.disable())
                 .authorizeHttpRequests(auth -> auth
-                        .requestMatchers("/auth/login").permitAll()
-                        .requestMatchers("/auth/register").permitAll()
+                        .requestMatchers("/auth/**").permitAll()
                         .requestMatchers("/admin/**").hasRole("ADMIN")
                         .anyRequest().authenticated()
-                )
-                .formLogin(form -> form
-                        .disable()
-                        //.loginPage("/auth/login") // 指定你的自定义登录页面
-                        //.loginProcessingUrl("/auth/login") // 处理登录请求的 URL (与 form action 相同)
-                        //.defaultSuccessUrl("/", true) // 登录成功后重定向的 URL
-                        //.failureUrl("/auth/login?error") // 登录失败后重定向的 URL
                 )
                 .authenticationProvider(authenticationProvider()) // 注册 DaoAuthenticationProvider
                 .addFilterBefore(jwtAuthenticationFilter, UsernamePasswordAuthenticationFilter.class); // 将 JWT 验证过滤器添加到 UsernamePasswordAuthenticationFilter 之前;
@@ -98,4 +100,7 @@ public class SecurityConfig {
     // public UserDetailsService userDetailsService() {
     //     return new CustomUserDetailsService(); // 你的自定义 UserDetailsService 实现
     // }
+
+
+
 }
