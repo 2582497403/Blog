@@ -1,33 +1,31 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="com.fanqie.blog.dao.TbRolesDao">
+<mapper namespace="com.fanqie.blog.dao.TbTagDao">
 
-    <resultMap type="com.fanqie.blog.entity.TbRoles" id="TbRolesMap">
+    <resultMap type="com.fanqie.blog.entity.TbTag" id="TbTagMap">
         <result property="id" column="id" jdbcType="INTEGER"/>
         <result property="name" column="name" jdbcType="VARCHAR"/>
-        <result property="code" column="code" jdbcType="VARCHAR"/>
-        <result property="description" column="description" jdbcType="VARCHAR"/>
+        <result property="slug" column="slug" jdbcType="VARCHAR"/>
         <result property="createdAt" column="created_at" jdbcType="TIMESTAMP"/>
         <result property="updatedAt" column="updated_at" jdbcType="TIMESTAMP"/>
     </resultMap>
 
     <!--查询单个-->
-    <select id="queryById" resultMap="TbRolesMap">
+    <select id="queryById" resultMap="TbTagMap">
         select id,
                name,
-               code,
-               description,
+               slug,
                created_at,
                updated_at
-        from tb_roles
+        from tb_tag
         where id = #{id}
     </select>
 
     <!--查询指定行数据-->
-    <select id="queryAllByLimit" resultMap="TbRolesMap">
+    <select id="queryAllByLimit" resultMap="TbTagMap">
         select
-        id, name, code, description, created_at, updated_at
-        from tb_roles
+        id, name, slug, created_at, updated_at
+        from tb_tag
         <where>
             <if test="id != null">
                 and id = #{id}
@@ -35,11 +33,8 @@
             <if test="name != null and name != ''">
                 and name = #{name}
             </if>
-            <if test="code != null and code != ''">
-                and code = #{code}
-            </if>
-            <if test="description != null and description != ''">
-                and description = #{description}
+            <if test="slug != null and slug != ''">
+                and slug = #{slug}
             </if>
             <if test="createdAt != null">
                 and created_at = #{createdAt}
@@ -54,7 +49,7 @@
     <!--统计总行数-->
     <select id="count" resultType="java.lang.Long">
         select count(1)
-        from tb_roles
+        from tb_tag
         <where>
             <if test="id != null">
                 and id = #{id}
@@ -62,11 +57,8 @@
             <if test="name != null and name != ''">
                 and name = #{name}
             </if>
-            <if test="code != null and code != ''">
-                and code = #{code}
-            </if>
-            <if test="description != null and description != ''">
-                and description = #{description}
+            <if test="slug != null and slug != ''">
+                and slug = #{slug}
             </if>
             <if test="createdAt != null">
                 and created_at = #{createdAt}
@@ -79,44 +71,40 @@
 
     <!--新增所有列-->
     <insert id="insert" keyProperty="id" useGeneratedKeys="true">
-        insert into tb_roles(name, code, description, created_at, updated_at)
-        values (#{name}, #{code}, #{description}, #{createdAt}, #{updatedAt})
+        insert into tb_tag(name, slug, created_at, updated_at)
+        values (#{name}, #{slug}, #{createdAt}, #{updatedAt})
     </insert>
 
     <insert id="insertBatch" keyProperty="id" useGeneratedKeys="true">
-        insert into tb_roles(name, code, description, created_at, updated_at)
+        insert into tb_tag(name, slug, created_at, updated_at)
         values
         <foreach collection="entities" item="entity" separator=",">
-            (#{entity.name}, #{entity.code}, #{entity.description}, #{entity.createdAt}, #{entity.updatedAt})
+            (#{entity.name}, #{entity.slug}, #{entity.createdAt}, #{entity.updatedAt})
         </foreach>
     </insert>
 
     <insert id="insertOrUpdateBatch" keyProperty="id" useGeneratedKeys="true">
-        insert into tb_roles(name, code, description, created_at, updated_at)
+        insert into tb_tag(name, slug, created_at, updated_at)
         values
         <foreach collection="entities" item="entity" separator=",">
-            (#{entity.name}, #{entity.code}, #{entity.description}, #{entity.createdAt}, #{entity.updatedAt})
+            (#{entity.name}, #{entity.slug}, #{entity.createdAt}, #{entity.updatedAt})
         </foreach>
         on duplicate key update
         name = values(name),
-        code = values(code),
-        description = values(description),
+        slug = values(slug),
         created_at = values(created_at),
         updated_at = values(updated_at)
     </insert>
 
     <!--通过主键修改数据-->
     <update id="update">
-        update tb_roles
+        update tb_tag
         <set>
             <if test="name != null and name != ''">
                 name = #{name},
             </if>
-            <if test="code != null and code != ''">
-                code = #{code},
-            </if>
-            <if test="description != null and description != ''">
-                description = #{description},
+            <if test="slug != null and slug != ''">
+                slug = #{slug},
             </if>
             <if test="createdAt != null">
                 created_at = #{createdAt},
@@ -131,7 +119,7 @@
     <!--通过主键删除-->
     <delete id="deleteById">
         delete
-        from tb_roles
+        from tb_tag
         where id = #{id}
     </delete>
 

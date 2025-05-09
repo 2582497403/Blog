@@ -1,6 +1,6 @@
 package com.fanqie.blog.service;
 
-import com.fanqie.blog.entity.TbRoles;
+import com.fanqie.blog.entity.TbArticleTag;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 
 import java.util.Map;
@@ -9,20 +9,20 @@ import com.baomidou.mybatisplus.extension.service.IService;
 
 
 /**
- * (TbRoles)表服务接口
+ * (TbArticleTag)表服务接口
  *
  * @author makejava
- * @since 2025-05-08 08:52:59
+ * @since 2025-05-08 08:49:05
  */
-public interface TbRolesService extends IService<TbRoles> {
+public interface TbArticleTagService extends IService<TbArticleTag> {
 
     /**
      * 通过ID查询单条数据
      *
-     * @param id 主键
+     * @param articleId 主键
      * @return 实例对象
      */
-    TbRoles queryById(Long id);
+    TbArticleTag queryById(Long articleId);
 
     /**
      * 分页查询，支持排序与条件过滤
@@ -34,30 +34,30 @@ public interface TbRolesService extends IService<TbRoles> {
      * @param isAsc   是否升序
      * @return 分页结果
      */
-    Page<TbRoles> queryByPage(int page, int size, Map<String, Object> params, String orderBy, boolean isAsc);
+    Page<TbArticleTag> queryByPage(int page, int size, Map<String, Object> params, String orderBy, boolean isAsc);
 
     /**
      * 新增数据
      *
-     * @param tbRoles 实例对象
+     * @param tbArticleTag 实例对象
      * @return 实例对象
      */
-    TbRoles insert(TbRoles tbRoles);
+    TbArticleTag insert(TbArticleTag tbArticleTag);
 
     /**
      * 修改数据
      *
-     * @param tbRoles 实例对象
+     * @param tbArticleTag 实例对象
      * @return 实例对象
      */
-    TbRoles update(TbRoles tbRoles);
+    TbArticleTag update(TbArticleTag tbArticleTag);
 
     /**
      * 通过主键删除数据
      *
-     * @param id 主键
+     * @param articleId 主键
      * @return 是否成功
      */
-    boolean deleteById(Long id);
+    boolean deleteById(Long articleId);
 
 }

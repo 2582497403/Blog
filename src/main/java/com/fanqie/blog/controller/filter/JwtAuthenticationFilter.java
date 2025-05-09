@@ -1,7 +1,10 @@
 package com.fanqie.blog.controller.filter;
 
+import com.fanqie.blog.config.exception.BusinessException;
+import com.fanqie.blog.entity.LoginUser;
 import com.fanqie.blog.service.impl.UserDetailsServiceImpl;
 import com.fanqie.blog.utils.JwtUtil;
+import com.fanqie.blog.utils.RedisCache;
 import io.jsonwebtoken.Claims;
 import jakarta.servlet.FilterChain;
 import jakarta.servlet.ServletException;
@@ -13,6 +16,8 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.web.authentication.WebAuthenticationDetailsSource;
 import org.springframework.stereotype.Component;
+import org.springframework.util.MimeType;
+import org.springframework.util.MimeTypeUtils;
 import org.springframework.util.StringUtils;
 import org.springframework.web.filter.OncePerRequestFilter;
 
@@ -26,41 +31,59 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
 
     @Autowired // 自动注入 UserDetailsServiceImpl 实例，用于加载用户详细信息
     private UserDetailsServiceImpl userDetailsService;
+    @Autowired
+    private RedisCache redisCache;
 
     @Override // 重写 OncePerRequestFilter 中的 doFilterInternal 方法，该方法会在每个请求处理过程中执行一次
     protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain filterChain)
             throws ServletException, IOException {
+
+        // 跳过 OPTIONS 请求
+        if ("OPTIONS".equalsIgnoreCase(request.getMethod())) {
+            filterChain.doFilter(request, response);
+            return;
+        }
 
         // 从 HTTP 请求中获取 JWT 字符串
         String jwt = getJwtFromRequest(request);
 
         // 判断 JWT 字符串是否有效（不为空且不是空白字符）
         if (StringUtils.hasText(jwt)) {
+            Claims claims = null;
             try {
                 // 使用 JwtUtil 工具类解析 JWT 字符串，获取 Claims 对象（包含了 JWT 的声明信息）
-                Claims claims = JwtUtil.parseJWT(jwt);
-                // 判断 Claims 对象是否存在且 Token 未过期
-                if (!Objects.isNull(claims) && !isTokenExpired(claims)) {
-                    // 从 Claims 中获取用户标识，这里假设 subject 存储的是用户 ID
-                    String userId = claims.getSubject();
-                    // 使用从 JWT 中提取的用户 ID 加载用户的详细信息
-                    UserDetails userDetails = userDetailsService.loadUserById(userId);
-                    // 创建一个 UsernamePasswordAuthenticationToken 对象，用于 Spring Security 的认证
-                    // 参数分别为：userDetails（用户信息）、null（密码，因为 JWT 认证不需要再次验证密码）、userDetails.getAuthorities()（用户拥有的权限）
-                    UsernamePasswordAuthenticationToken authentication = new UsernamePasswordAuthenticationToken(
-                            userDetails, null, userDetails.getAuthorities());
-                    // 设置认证信息的详细信息，例如请求信息
-                    authentication.setDetails(new WebAuthenticationDetailsSource().buildDetails(request));
-                    // 将创建的认证对象设置到 Spring Security 的安全上下文（SecurityContextHolder）中
-                    // 这表示当前用户已通过认证，后续的请求可以直接访问受保护的资源
-                    SecurityContextHolder.getContext().setAuthentication(authentication);
-                }
-            } catch (Exception e) {
-                // 如果 JWT 解析或验证过程中发生异常，打印错误信息，表示 JWT 验证失败
-                System.err.println("JWT 验证失败: " + e.getMessage());
-                // 注意：这里没有设置认证失败的状态，请求会继续传递给后续的过滤器，
-                // 如果后续的权限控制需要认证，则会因为 SecurityContextHolder 中没有有效的认证信息而拒绝访问。
+                claims = JwtUtil.parseJWT(jwt);
+            }catch (Exception e){
+                logger.error("JWT 解析失败: ", e);
+                sendErrorResponse(response, HttpServletResponse.SC_UNAUTHORIZED, "登录失效，请重新登录");
+                return;
             }
+            // 判断 Claims 对象是否存在且 Token 未过期
+            if(Objects.isNull(claims) && isTokenExpired(claims)){
+                logger.error("Token失效: ");
+                sendErrorResponse(response, HttpServletResponse.SC_UNAUTHORIZED, "登录失效，请重新登录");
+                return;
+            }
+            // 从 Claims 中获取用户标识，这里假设 subject 存储的是用户 ID
+            String userId = claims.getSubject();
+            LoginUser loginUser =  (LoginUser) redisCache.getCacheObject("blog:login:" + userId);
+            if(Objects.isNull(loginUser)){
+                logger.error(userId+"账号已退出登录 ");
+                sendErrorResponse(response, HttpServletResponse.SC_UNAUTHORIZED, "登录失效，请重新登录");
+                return;
+            }
+            // 使用从 JWT 中提取的用户 ID 加载用户的详细信息
+            UserDetails userDetails = userDetailsService.loadUserById(userId);
+            // 创建一个 UsernamePasswordAuthenticationToken 对象，用于 Spring Security 的认证
+            // 参数分别为：userDetails（用户信息）、null（密码，因为 JWT 认证不需要再次验证密码）、userDetails.getAuthorities()（用户拥有的权限）
+            UsernamePasswordAuthenticationToken authentication = new UsernamePasswordAuthenticationToken(
+                    userDetails, null, userDetails.getAuthorities());
+            // 设置认证信息的详细信息，例如请求信息
+            authentication.setDetails(new WebAuthenticationDetailsSource().buildDetails(request));
+            // 将创建的认证对象设置到 Spring Security 的安全上下文（SecurityContextHolder）中
+            // 这表示当前用户已通过认证，后续的请求可以直接访问受保护的资源
+            SecurityContextHolder.getContext().setAuthentication(authentication);
+
         }
 
         // 将请求传递给过滤器链中的下一个过滤器
@@ -88,4 +111,20 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
         // 判断过期时间是否在当前时间之前，如果在之前则表示已过期
         return expirationDate.before(new Date());
     }
+
+    /**
+     * 发送请求错误
+     * @param response
+     * @param status
+     * @param message
+     * @throws IOException
+     */
+    private void sendErrorResponse(HttpServletResponse response, int status, String message) throws IOException {
+        response.setStatus(status);
+        response.setContentType(MimeTypeUtils.APPLICATION_JSON_VALUE);
+        response.setCharacterEncoding("UTF-8");
+        String json = "{\"success\": false, \"message\": \"" + message + "\", \"code\": " + status + "}";
+        response.getWriter().write(json);
+    }
+
 }

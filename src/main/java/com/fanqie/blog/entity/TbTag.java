@@ -4,34 +4,22 @@ import java.util.Date;
 import java.io.Serializable;
 
 /**
- * (TbRoles)实体类
+ * (TbTag)实体类
  *
  * @author makejava
- * @since 2025-05-08 08:52:59
+ * @since 2025-05-08 08:49:58
  */
-public class TbRoles implements Serializable {
-    private static final long serialVersionUID = 610024468460222760L;
+public class TbTag implements Serializable {
+    private static final long serialVersionUID = -27728951122356498L;
 
     private Long id;
-    /**
-     * 角色名
-     */
+
     private String name;
-    /**
-     * 角色编码
-     */
-    private String code;
-    /**
-     * 描述
-     */
-    private String description;
-    /**
-     * 创建时间
-     */
+
+    private String slug;
+
     private Date createdAt;
-    /**
-     * 更新时间
-     */
+
     private Date updatedAt;
 
 
@@ -51,20 +39,12 @@ public class TbRoles implements Serializable {
         this.name = name;
     }
 
-    public String getCode() {
-        return code;
+    public String getSlug() {
+        return slug;
     }
 
-    public void setCode(String code) {
-        this.code = code;
-    }
-
-    public String getDescription() {
-        return description;
-    }
-
-    public void setDescription(String description) {
-        this.description = description;
+    public void setSlug(String slug) {
+        this.slug = slug;
     }
 
     public Date getCreatedAt() {

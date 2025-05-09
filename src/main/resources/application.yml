@@ -5,15 +5,22 @@ spring:
     username: fanqie
     password: 1125
     driver-class-name: org.postgresql.Driver
-    url: jdbc:postgresql://192.168.31.216:5432/blog
+    url: jdbc:postgresql://127.0.0.1:5432/blog
   sql:
     init:
       mode: always
   data:
     redis:
-      host: 192.168.31.216
+      host: 127.0.0.1
       port: 6379
+logging:
+  level:
+    com.baomidou.mybatisplus: debug
+    org.apache.ibatis: debug
 mybatis-plus:
   mapper-locations: classpath*:/mapper/**Mapper.xml
   configuration:
+    log-impl: org.apache.ibatis.logging.stdout.StdOutImpl
     map-underscore-to-camel-case: true
+
+

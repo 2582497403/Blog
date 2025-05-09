@@ -1,6 +1,6 @@
 package com.fanqie.blog.service;
 
-import com.fanqie.blog.entity.TbRoles;
+import com.fanqie.blog.entity.TbRolePermissions;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 
 import java.util.Map;
@@ -9,20 +9,20 @@ import com.baomidou.mybatisplus.extension.service.IService;
 
 
 /**
- * (TbRoles)表服务接口
+ * (TbRolePermissions)表服务接口
  *
  * @author makejava
- * @since 2025-05-08 08:52:59
+ * @since 2025-05-08 08:49:46
  */
-public interface TbRolesService extends IService<TbRoles> {
+public interface TbRolePermissionsService extends IService<TbRolePermissions> {
 
     /**
      * 通过ID查询单条数据
      *
-     * @param id 主键
+     * @param roleId 主键
      * @return 实例对象
      */
-    TbRoles queryById(Long id);
+    TbRolePermissions queryById(Long roleId);
 
     /**
      * 分页查询，支持排序与条件过滤
@@ -34,30 +34,30 @@ public interface TbRolesService extends IService<TbRoles> {
      * @param isAsc   是否升序
      * @return 分页结果
      */
-    Page<TbRoles> queryByPage(int page, int size, Map<String, Object> params, String orderBy, boolean isAsc);
+    Page<TbRolePermissions> queryByPage(int page, int size, Map<String, Object> params, String orderBy, boolean isAsc);
 
     /**
      * 新增数据
      *
-     * @param tbRoles 实例对象
+     * @param tbRolePermissions 实例对象
      * @return 实例对象
      */
-    TbRoles insert(TbRoles tbRoles);
+    TbRolePermissions insert(TbRolePermissions tbRolePermissions);
 
     /**
      * 修改数据
      *
-     * @param tbRoles 实例对象
+     * @param tbRolePermissions 实例对象
      * @return 实例对象
      */
-    TbRoles update(TbRoles tbRoles);
+    TbRolePermissions update(TbRolePermissions tbRolePermissions);
 
     /**
      * 通过主键删除数据
      *
-     * @param id 主键
+     * @param roleId 主键
      * @return 是否成功
      */
-    boolean deleteById(Long id);
+    boolean deleteById(Long roleId);
 
 }

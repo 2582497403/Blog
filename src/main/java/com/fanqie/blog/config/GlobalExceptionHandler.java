@@ -1,11 +1,10 @@
 package com.fanqie.blog.config;
 
-import com.fanqie.blog.exception.BusinessException;
+import com.fanqie.blog.config.exception.BusinessException;
 import com.fanqie.blog.utils.Result; // 假设你有一个统一的 Result 封装类
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.ResponseBody;

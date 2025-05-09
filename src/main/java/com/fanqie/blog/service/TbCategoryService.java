@@ -1,6 +1,6 @@
 package com.fanqie.blog.service;
 
-import com.fanqie.blog.entity.TbRoles;
+import com.fanqie.blog.entity.TbCategory;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 
 import java.util.Map;
@@ -9,12 +9,12 @@ import com.baomidou.mybatisplus.extension.service.IService;
 
 
 /**
- * (TbRoles)表服务接口
+ * (TbCategory)表服务接口
  *
  * @author makejava
- * @since 2025-05-08 08:52:59
+ * @since 2025-05-08 08:48:49
  */
-public interface TbRolesService extends IService<TbRoles> {
+public interface TbCategoryService extends IService<TbCategory> {
 
     /**
      * 通过ID查询单条数据
@@ -22,7 +22,7 @@ public interface TbRolesService extends IService<TbRoles> {
      * @param id 主键
      * @return 实例对象
      */
-    TbRoles queryById(Long id);
+    TbCategory queryById(Long id);
 
     /**
      * 分页查询，支持排序与条件过滤
@@ -34,23 +34,23 @@ public interface TbRolesService extends IService<TbRoles> {
      * @param isAsc   是否升序
      * @return 分页结果
      */
-    Page<TbRoles> queryByPage(int page, int size, Map<String, Object> params, String orderBy, boolean isAsc);
+    Page<TbCategory> queryByPage(int page, int size, Map<String, Object> params, String orderBy, boolean isAsc);
 
     /**
      * 新增数据
      *
-     * @param tbRoles 实例对象
+     * @param tbCategory 实例对象
      * @return 实例对象
      */
-    TbRoles insert(TbRoles tbRoles);
+    TbCategory insert(TbCategory tbCategory);
 
     /**
      * 修改数据
      *
-     * @param tbRoles 实例对象
+     * @param tbCategory 实例对象
      * @return 实例对象
      */
-    TbRoles update(TbRoles tbRoles);
+    TbCategory update(TbCategory tbCategory);
 
     /**
      * 通过主键删除数据
