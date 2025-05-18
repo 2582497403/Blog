@@ -1,4 +1,4 @@
-package com.fanqie.blog.exception;
+package com.fanqie.blog.config.exception;
 
 import lombok.AllArgsConstructor;
 import lombok.NoArgsConstructor;

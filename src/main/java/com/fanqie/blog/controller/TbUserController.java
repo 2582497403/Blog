@@ -77,6 +77,21 @@ public class TbUserController {
         return Result.ok(this.tbUserService.updateById(tbUser));
     }
 
+    @PutMapping("updateUserInfo")
+    public Result<TbUser> updateUserInfo(@RequestBody TbUser tbUser) {
+        TbUser user = this.tbUserService.getById(tbUser.getId());
+        user.setUsername(tbUser.getUsername());
+        user.setNickname(tbUser.getNickname());
+        user.setEmail(tbUser.getEmail());
+        user.setBio(tbUser.getBio());
+        boolean update = this.tbUserService.updateById(user);
+        user.setPassword("");
+        if(update){
+            return Result.ok(user);
+        }
+        return Result.error(null);
+    }
+
     /**
      * 删除数据
      *

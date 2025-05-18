@@ -1,36 +1,49 @@
 package com.fanqie.blog.entity;
 
 import java.util.Date;
-
-import com.baomidou.mybatisplus.extension.activerecord.Model;
-
 import java.io.Serializable;
 
 /**
- * (TbPermissions)表实体类
+ * (TbPermissions)实体类
  *
  * @author makejava
- * @since 2025-04-17 10:20:48
+ * @since 2025-05-08 08:52:43
  */
-@SuppressWarnings("serial")
-public class TbPermissions extends Model<TbPermissions> {
+public class TbPermissions implements Serializable {
+    private static final long serialVersionUID = -18089420940289977L;
 
     private Long id;
-    //权限名
+    /**
+     * 权限名
+     */
     private String name;
-    //权限编码
+    /**
+     * 权限编码
+     */
     private String code;
-    //对应接口
+    /**
+     * 对应接口
+     */
     private String url;
-    //请求方法
+    /**
+     * 请求方法
+     */
     private String method;
-    //类型
+    /**
+     * 类型
+     */
     private String type;
-    //父级 ID
+    /**
+     * 父级 ID
+     */
     private Long parentId;
-    //创建时间
+    /**
+     * 创建时间
+     */
     private Date createdAt;
-    //更新时间
+    /**
+     * 更新时间
+     */
     private Date updatedAt;
 
 
