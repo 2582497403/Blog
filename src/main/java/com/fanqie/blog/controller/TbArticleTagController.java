@@ -3,7 +3,7 @@ package com.fanqie.blog.controller;
 import com.fanqie.blog.entity.TbArticleTag;
 import com.fanqie.blog.service.TbArticleTagService;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
-import org.springframework.http.ResponseEntity;
+import com.fanqie.blog.utils.Result;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.beans.factory.annotation.Autowired;
 
@@ -14,7 +14,7 @@ import java.util.Map;
  * (TbArticleTag)表控制层
  *
  * @author makejava
- * @since 2025-05-08 08:49:05
+ * @since 2025-05-08 11:06:27
  */
 @RestController
 @RequestMapping("tbArticleTag")
@@ -36,7 +36,7 @@ public class TbArticleTagController {
      * @return 分页结果
      */
     @GetMapping("/page")
-    public Page<TbArticleTag> queryByPage(
+    public Result<Page<TbArticleTag>> queryByPage(
             @RequestParam(defaultValue = "1") int page,
             @RequestParam(defaultValue = "10") int size,
             @RequestParam(required = false) String orderBy,
@@ -46,7 +46,7 @@ public class TbArticleTagController {
         Map<String, Object> params = new HashMap<>();
         params.put("status", status);
 
-        return this.tbArticleTagService.queryByPage(page, size, params, orderBy, isAsc);
+        return Result.ok(this.tbArticleTagService.queryByPage(page, size, params, orderBy, isAsc));
     }
 
     /**
@@ -56,8 +56,8 @@ public class TbArticleTagController {
      * @return 单条数据
      */
     @GetMapping("{id}")
-    public ResponseEntity<TbArticleTag> queryById(@PathVariable("id") Long id) {
-        return ResponseEntity.ok(this.tbArticleTagService.queryById(id));
+    public Result<TbArticleTag> queryById(@PathVariable("id") Long id) {
+        return Result.ok(this.tbArticleTagService.queryById(id));
     }
 
     /**
@@ -67,8 +67,8 @@ public class TbArticleTagController {
      * @return 新增结果
      */
     @PostMapping
-    public ResponseEntity<TbArticleTag> add(TbArticleTag tbArticleTag) {
-        return ResponseEntity.ok(this.tbArticleTagService.insert(tbArticleTag));
+    public Result<TbArticleTag> add(TbArticleTag tbArticleTag) {
+        return Result.ok(this.tbArticleTagService.insert(tbArticleTag));
     }
 
     /**
@@ -78,8 +78,8 @@ public class TbArticleTagController {
      * @return 编辑结果
      */
     @PutMapping
-    public ResponseEntity<TbArticleTag> edit(TbArticleTag tbArticleTag) {
-        return ResponseEntity.ok(this.tbArticleTagService.update(tbArticleTag));
+    public Result<TbArticleTag> edit(TbArticleTag tbArticleTag) {
+        return Result.ok(this.tbArticleTagService.update(tbArticleTag));
     }
 
     /**
@@ -89,8 +89,8 @@ public class TbArticleTagController {
      * @return 删除是否成功
      */
     @DeleteMapping
-    public ResponseEntity<Boolean> deleteById(Long id) {
-        return ResponseEntity.ok(this.tbArticleTagService.deleteById(id));
+    public Result<Boolean> deleteById(Long id) {
+        return Result.ok(this.tbArticleTagService.deleteById(id));
     }
 
 }

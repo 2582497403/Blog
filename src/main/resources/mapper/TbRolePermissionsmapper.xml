@@ -9,8 +9,8 @@
 
     <!--查询单个-->
     <select id="queryById" resultMap="TbRolePermissionsMap">
-        select role_id,
-               permission_id
+        select
+role_id, permission_id
         from tb_role_permissions
         where role_id = #{roleId}
     </select>
@@ -18,7 +18,7 @@
     <!--查询指定行数据-->
     <select id="queryAllByLimit" resultMap="TbRolePermissionsMap">
         select
-        role_id, permission_id
+role_id, permission_id
         from tb_role_permissions
         <where>
             <if test="roleId != null">
@@ -55,7 +55,7 @@
         insert into tb_role_permissions()
         values
         <foreach collection="entities" item="entity" separator=",">
-            ()
+        ()
         </foreach>
     </insert>
 
@@ -79,9 +79,7 @@
 
     <!--通过主键删除-->
     <delete id="deleteById">
-        delete
-        from tb_role_permissions
-        where role_id = #{roleId}
+        delete from tb_role_permissions where role_id = #{roleId}
     </delete>
 
 </mapper>

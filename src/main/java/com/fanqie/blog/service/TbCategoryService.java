@@ -12,7 +12,7 @@ import com.baomidou.mybatisplus.extension.service.IService;
  * (TbCategory)表服务接口
  *
  * @author makejava
- * @since 2025-05-08 08:48:49
+ * @since 2025-05-08 11:06:05
  */
 public interface TbCategoryService extends IService<TbCategory> {
 

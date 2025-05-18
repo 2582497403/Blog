@@ -17,7 +17,7 @@ import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
  * (TbPermissions)表服务实现类
  *
  * @author makejava
- * @since 2025-05-08 08:52:43
+ * @since 2025-05-08 11:06:33
  */
 @Service("tbPermissionsService")
 public class TbPermissionsServiceImpl extends ServiceImpl<TbPermissionsMapper, TbPermissions> implements TbPermissionsService {

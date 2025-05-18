@@ -12,7 +12,7 @@ import com.baomidou.mybatisplus.core.mapper.BaseMapper;
  * (TbPermissions)表数据库访问层
  *
  * @author makejava
- * @since 2025-05-08 08:52:43
+ * @since 2025-05-08 11:06:33
  */
 public interface TbPermissionsMapper extends BaseMapper<TbPermissions> {
 

@@ -3,65 +3,34 @@ package com.fanqie.blog.entity;
 import java.util.Date;
 import java.io.Serializable;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
+import lombok.Data;
+
 /**
  * (TbTag)实体类
  *
  * @author makejava
- * @since 2025-05-08 08:49:58
+ * @since 2025-05-08 11:06:47
  */
+@Data
 public class TbTag implements Serializable {
-    private static final long serialVersionUID = -27728951122356498L;
+    private static final long serialVersionUID = 395932563881457867L;
 
+    @JsonFormat(shape = JsonFormat.Shape.STRING)
     private Long id;
 
     private String name;
 
     private String slug;
 
-    private Date createdAt;
+    private Date createTime;
 
-    private Date updatedAt;
+    private Date updateTime;
 
+    private String color;
 
-    public Long getId() {
-        return id;
-    }
+    private String sort;
 
-    public void setId(Long id) {
-        this.id = id;
-    }
-
-    public String getName() {
-        return name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
-    }
-
-    public String getSlug() {
-        return slug;
-    }
-
-    public void setSlug(String slug) {
-        this.slug = slug;
-    }
-
-    public Date getCreatedAt() {
-        return createdAt;
-    }
-
-    public void setCreatedAt(Date createdAt) {
-        this.createdAt = createdAt;
-    }
-
-    public Date getUpdatedAt() {
-        return updatedAt;
-    }
-
-    public void setUpdatedAt(Date updatedAt) {
-        this.updatedAt = updatedAt;
-    }
-
+    private Integer count;
 }
 

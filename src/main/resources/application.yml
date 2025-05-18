@@ -18,6 +18,9 @@ logging:
     com.baomidou.mybatisplus: debug
     org.apache.ibatis: debug
 mybatis-plus:
+  global-config:
+    db-config:
+      id-type: assign_id
   mapper-locations: classpath*:/mapper/**Mapper.xml
   configuration:
     log-impl: org.apache.ibatis.logging.stdout.StdOutImpl

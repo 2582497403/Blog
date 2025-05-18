@@ -3,10 +3,9 @@ package com.fanqie.blog.controller;
 import com.fanqie.blog.entity.TbUserRoles;
 import com.fanqie.blog.service.TbUserRolesService;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
-import org.springframework.http.ResponseEntity;
+import com.fanqie.blog.utils.Result;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.beans.factory.annotation.Autowired;
-
 import java.util.HashMap;
 import java.util.Map;
 
@@ -14,7 +13,7 @@ import java.util.Map;
  * (TbUserRoles)表控制层
  *
  * @author makejava
- * @since 2025-05-08 08:50:08
+ * @since 2025-05-08 11:06:51
  */
 @RestController
 @RequestMapping("tbUserRoles")
@@ -24,8 +23,7 @@ public class TbUserRolesController {
      */
     @Autowired
     private TbUserRolesService tbUserRolesService;
-
-    /**
+        /**
      * 通用分页查询接口
      *
      * @param page    当前页
@@ -36,7 +34,7 @@ public class TbUserRolesController {
      * @return 分页结果
      */
     @GetMapping("/page")
-    public Page<TbUserRoles> queryByPage(
+    public Result<Page<TbUserRoles>> queryByPage(
             @RequestParam(defaultValue = "1") int page,
             @RequestParam(defaultValue = "10") int size,
             @RequestParam(required = false) String orderBy,
@@ -46,7 +44,7 @@ public class TbUserRolesController {
         Map<String, Object> params = new HashMap<>();
         params.put("status", status);
 
-        return this.tbUserRolesService.queryByPage(page, size, params, orderBy, isAsc);
+        return Result.ok(this.tbUserRolesService.queryByPage(page, size, params, orderBy, isAsc));
     }
 
     /**
@@ -56,8 +54,8 @@ public class TbUserRolesController {
      * @return 单条数据
      */
     @GetMapping("{id}")
-    public ResponseEntity<TbUserRoles> queryById(@PathVariable("id") Integer id) {
-        return ResponseEntity.ok(this.tbUserRolesService.queryById(id));
+    public Result<TbUserRoles> queryById(@PathVariable("id") Integer id) {
+        return Result.ok(this.tbUserRolesService.queryById(id));
     }
 
     /**
@@ -67,8 +65,8 @@ public class TbUserRolesController {
      * @return 新增结果
      */
     @PostMapping
-    public ResponseEntity<TbUserRoles> add(TbUserRoles tbUserRoles) {
-        return ResponseEntity.ok(this.tbUserRolesService.insert(tbUserRoles));
+    public Result<TbUserRoles> add(TbUserRoles tbUserRoles) {
+        return Result.ok(this.tbUserRolesService.insert(tbUserRoles));
     }
 
     /**
@@ -78,8 +76,8 @@ public class TbUserRolesController {
      * @return 编辑结果
      */
     @PutMapping
-    public ResponseEntity<TbUserRoles> edit(TbUserRoles tbUserRoles) {
-        return ResponseEntity.ok(this.tbUserRolesService.update(tbUserRoles));
+    public Result<TbUserRoles> edit(TbUserRoles tbUserRoles) {
+        return Result.ok(this.tbUserRolesService.update(tbUserRoles));
     }
 
     /**
@@ -89,8 +87,8 @@ public class TbUserRolesController {
      * @return 删除是否成功
      */
     @DeleteMapping
-    public ResponseEntity<Boolean> deleteById(Integer id) {
-        return ResponseEntity.ok(this.tbUserRolesService.deleteById(id));
+    public Result<Boolean> deleteById(Integer id) {
+        return Result.ok(this.tbUserRolesService.deleteById(id));
     }
 
 }

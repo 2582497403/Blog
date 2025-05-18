@@ -2,37 +2,35 @@ package com.fanqie.blog.entity;
 
 import java.util.Date;
 import java.io.Serializable;
+import lombok.Data;
 
 /**
  * (TbRoles)实体类
  *
  * @author makejava
- * @since 2025-05-08 08:52:59
+ * @since 2025-05-08 11:06:42
  */
+@Data
 public class TbRoles implements Serializable {
-    private static final long serialVersionUID = 610024468460222760L;
+    private static final long serialVersionUID = -13387838524860191L;
 
     private Long id;
-    /**
+/**
      * 角色名
      */
     private String name;
-    /**
+/**
      * 角色编码
      */
     private String code;
-    /**
+/**
      * 描述
      */
     private String description;
-    /**
-     * 创建时间
-     */
-    private Date createdAt;
-    /**
-     * 更新时间
-     */
-    private Date updatedAt;
+
+    private Date createTime;
+
+    private Date updateTime;
 
 
     public Long getId() {
@@ -67,20 +65,20 @@ public class TbRoles implements Serializable {
         this.description = description;
     }
 
-    public Date getCreatedAt() {
-        return createdAt;
+    public Date getCreateTime() {
+        return createTime;
     }
 
-    public void setCreatedAt(Date createdAt) {
-        this.createdAt = createdAt;
+    public void setCreateTime(Date createTime) {
+        this.createTime = createTime;
     }
 
-    public Date getUpdatedAt() {
-        return updatedAt;
+    public Date getUpdateTime() {
+        return updateTime;
     }
 
-    public void setUpdatedAt(Date updatedAt) {
-        this.updatedAt = updatedAt;
+    public void setUpdateTime(Date updateTime) {
+        this.updateTime = updateTime;
     }
 
 }

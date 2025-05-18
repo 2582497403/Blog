@@ -1,15 +1,17 @@
 package com.fanqie.blog.entity;
 
 import java.io.Serializable;
+import lombok.Data;
 
 /**
  * (TbUserRoles)实体类
  *
  * @author makejava
- * @since 2025-05-08 08:50:08
+ * @since 2025-05-08 11:06:51
  */
+@Data
 public class TbUserRoles implements Serializable {
-    private static final long serialVersionUID = -36622338074648694L;
+    private static final long serialVersionUID = -71056575566366894L;
 
     private Integer userId;
 

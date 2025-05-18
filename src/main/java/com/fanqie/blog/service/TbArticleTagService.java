@@ -1,5 +1,6 @@
 package com.fanqie.blog.service;
 
+import com.fanqie.blog.entity.TbArticle;
 import com.fanqie.blog.entity.TbArticleTag;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 
@@ -12,7 +13,7 @@ import com.baomidou.mybatisplus.extension.service.IService;
  * (TbArticleTag)表服务接口
  *
  * @author makejava
- * @since 2025-05-08 08:49:05
+ * @since 2025-05-08 11:06:27
  */
 public interface TbArticleTagService extends IService<TbArticleTag> {
 
@@ -60,4 +61,5 @@ public interface TbArticleTagService extends IService<TbArticleTag> {
      */
     boolean deleteById(Long articleId);
 
+    Page<TbArticle> setTagToArticleList(Page<TbArticle> articlePage);
 }

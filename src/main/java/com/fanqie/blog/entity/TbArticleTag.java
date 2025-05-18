@@ -2,35 +2,25 @@ package com.fanqie.blog.entity;
 
 import java.io.Serializable;
 
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.NoArgsConstructor;
+
 /**
  * (TbArticleTag)实体类
  *
  * @author makejava
- * @since 2025-05-08 08:49:05
+ * @since 2025-05-08 11:06:27
  */
+@Data
+@NoArgsConstructor
+@AllArgsConstructor
 public class TbArticleTag implements Serializable {
-    private static final long serialVersionUID = -15286369466497236L;
+    private static final long serialVersionUID = 102670295861973795L;
 
     private Long articleId;
 
     private Long tagId;
-
-
-    public Long getArticleId() {
-        return articleId;
-    }
-
-    public void setArticleId(Long articleId) {
-        this.articleId = articleId;
-    }
-
-    public Long getTagId() {
-        return tagId;
-    }
-
-    public void setTagId(Long tagId) {
-        this.tagId = tagId;
-    }
 
 }
 

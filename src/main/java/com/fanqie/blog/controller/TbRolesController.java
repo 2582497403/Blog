@@ -3,10 +3,9 @@ package com.fanqie.blog.controller;
 import com.fanqie.blog.entity.TbRoles;
 import com.fanqie.blog.service.TbRolesService;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
-import org.springframework.http.ResponseEntity;
+import com.fanqie.blog.utils.Result;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.beans.factory.annotation.Autowired;
-
 import java.util.HashMap;
 import java.util.Map;
 
@@ -14,7 +13,7 @@ import java.util.Map;
  * (TbRoles)表控制层
  *
  * @author makejava
- * @since 2025-05-08 08:52:59
+ * @since 2025-05-08 11:06:42
  */
 @RestController
 @RequestMapping("tbRoles")
@@ -24,8 +23,7 @@ public class TbRolesController {
      */
     @Autowired
     private TbRolesService tbRolesService;
-
-    /**
+        /**
      * 通用分页查询接口
      *
      * @param page    当前页
@@ -36,7 +34,7 @@ public class TbRolesController {
      * @return 分页结果
      */
     @GetMapping("/page")
-    public Page<TbRoles> queryByPage(
+    public Result<Page<TbRoles>> queryByPage(
             @RequestParam(defaultValue = "1") int page,
             @RequestParam(defaultValue = "10") int size,
             @RequestParam(required = false) String orderBy,
@@ -46,7 +44,7 @@ public class TbRolesController {
         Map<String, Object> params = new HashMap<>();
         params.put("status", status);
 
-        return this.tbRolesService.queryByPage(page, size, params, orderBy, isAsc);
+        return Result.ok(this.tbRolesService.queryByPage(page, size, params, orderBy, isAsc));
     }
 
     /**
@@ -56,8 +54,8 @@ public class TbRolesController {
      * @return 单条数据
      */
     @GetMapping("{id}")
-    public ResponseEntity<TbRoles> queryById(@PathVariable("id") Long id) {
-        return ResponseEntity.ok(this.tbRolesService.queryById(id));
+    public Result<TbRoles> queryById(@PathVariable("id") Long id) {
+        return Result.ok(this.tbRolesService.queryById(id));
     }
 
     /**
@@ -67,8 +65,8 @@ public class TbRolesController {
      * @return 新增结果
      */
     @PostMapping
-    public ResponseEntity<TbRoles> add(TbRoles tbRoles) {
-        return ResponseEntity.ok(this.tbRolesService.insert(tbRoles));
+    public Result<TbRoles> add(TbRoles tbRoles) {
+        return Result.ok(this.tbRolesService.insert(tbRoles));
     }
 
     /**
@@ -78,8 +76,8 @@ public class TbRolesController {
      * @return 编辑结果
      */
     @PutMapping
-    public ResponseEntity<TbRoles> edit(TbRoles tbRoles) {
-        return ResponseEntity.ok(this.tbRolesService.update(tbRoles));
+    public Result<TbRoles> edit(TbRoles tbRoles) {
+        return Result.ok(this.tbRolesService.update(tbRoles));
     }
 
     /**
@@ -89,8 +87,8 @@ public class TbRolesController {
      * @return 删除是否成功
      */
     @DeleteMapping
-    public ResponseEntity<Boolean> deleteById(Long id) {
-        return ResponseEntity.ok(this.tbRolesService.deleteById(id));
+    public Result<Boolean> deleteById(Long id) {
+        return Result.ok(this.tbRolesService.deleteById(id));
     }
 
 }

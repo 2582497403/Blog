@@ -11,6 +11,7 @@ import com.fanqie.blog.utils.JwtUtil;
 import com.fanqie.blog.utils.RedisCache;
 import com.fanqie.blog.utils.Result;
 import io.jsonwebtoken.lang.Strings;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
@@ -25,6 +26,7 @@ import java.util.HashMap;
 import java.util.Objects;
 
 @Service
+@Slf4j
 public class LoginServiceImpl implements LoginService {
 
     @Autowired
@@ -62,6 +64,7 @@ public class LoginServiceImpl implements LoginService {
             map.put("userInfo", JSON.toJSONString(userInfo));
             return Result.ok(map);
         } catch (AuthenticationException e) {
+            log.error(e.getMessage());
             // 捕获认证失败异常
             return Result.noauth("账号或密码错误");
         }

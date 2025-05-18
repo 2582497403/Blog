@@ -3,7 +3,6 @@ package com.fanqie.blog.service;
 import com.fanqie.blog.entity.TbArticle;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 
-import java.util.List;
 import java.util.Map;
 
 import com.baomidou.mybatisplus.extension.service.IService;
@@ -13,7 +12,7 @@ import com.baomidou.mybatisplus.extension.service.IService;
  * (TbArticle)表服务接口
  *
  * @author makejava
- * @since 2025-05-07 12:56:18
+ * @since 2025-05-08 11:06:20
  */
 public interface TbArticleService extends IService<TbArticle> {
 
@@ -35,15 +34,8 @@ public interface TbArticleService extends IService<TbArticle> {
      * @param isAsc   是否升序
      * @return 分页结果
      */
-    List<TbArticle> queryByPage(int page, int size, Map<String, Object> params, String orderBy, boolean isAsc);
+    Page<TbArticle> queryByPage(int page, int size, Map<String, Object> params, String orderBy, boolean isAsc);
 
-    /**
-     * 新增数据
-     *
-     * @param tbArticle 实例对象
-     * @return 实例对象
-     */
-    TbArticle insert(TbArticle tbArticle);
 
     /**
      * 修改数据
@@ -61,4 +53,5 @@ public interface TbArticleService extends IService<TbArticle> {
      */
     boolean deleteById(Long id);
 
+    TbArticle addTbArticle(TbArticle tbArticle);
 }

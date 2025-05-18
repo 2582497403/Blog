@@ -1,167 +1,56 @@
 package com.fanqie.blog.entity;
-
-import java.util.Date;
+import com.baomidou.mybatisplus.annotation.TableField;
+import com.fasterxml.jackson.annotation.JsonFormat;
+import lombok.Data;
 import java.io.Serializable;
+import java.time.LocalDateTime;
+import java.util.Date;
+import java.util.List;
 
-/**
- * (TbArticle)实体类
- *
- * @author makejava
- * @since 2025-05-07 12:56:18
- */
+@Data
 public class TbArticle implements Serializable {
-    private static final long serialVersionUID = 637914608300615322L;
+    private static final long serialVersionUID = -64841424849046729L;
 
-    private Long id;
+    @JsonFormat(shape = JsonFormat.Shape.STRING)
+    private Long id;                    // 文章ID
 
-    private String title;
+    private String title;               // 文章标题
 
-    private String slug;
+    private String slug;                // 文章别名（用于URL优化）
 
-    private String content;
+    private String content;             // 文章内容
 
-    private String summary;
+    private String summary;             // 文章摘要
+    @JsonFormat(shape = JsonFormat.Shape.STRING)
+    private Long categoryId;            // 分类ID
+    @JsonFormat(shape = JsonFormat.Shape.STRING)
+    private Long authorId;              // 作者ID
 
-    private Long categoryId;
+    private Integer views;              // 查看次数
 
-    private Long authorId;
+    private Integer likes;               //点赞
 
-    private Integer views;
+    private String status;              // 文章状态（例如：draft、published）
 
-    private String status;
+    private Date createTime;            // 创建时间
 
-    private Date createdAt;
+    private Date updateTime;            // 更新时间
 
-    private Date updatedAt;
+    private LocalDateTime publishedAt;           // 发布时间
 
-    private Date publishedAt;
+    private Boolean isDeleted;          // 是否删除
 
-    private String thumbnail;
+    private String coverImage;          // 封面图片URL
 
-    private Boolean isFeatured;
+    private Boolean isTop;               // 是否置顶（建议改为 Boolean 类型以更规范）
 
-    private Boolean isDeleted;
+    @TableField(exist = false)
+    @JsonFormat(shape = JsonFormat.Shape.STRING)
+    private List<Long> tags;
 
+    @TableField(exist = false)
+    private List<String> tagNames;
 
-    public Long getId() {
-        return id;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
-    }
-
-    public String getTitle() {
-        return title;
-    }
-
-    public void setTitle(String title) {
-        this.title = title;
-    }
-
-    public String getSlug() {
-        return slug;
-    }
-
-    public void setSlug(String slug) {
-        this.slug = slug;
-    }
-
-    public String getContent() {
-        return content;
-    }
-
-    public void setContent(String content) {
-        this.content = content;
-    }
-
-    public String getSummary() {
-        return summary;
-    }
-
-    public void setSummary(String summary) {
-        this.summary = summary;
-    }
-
-    public Long getCategoryId() {
-        return categoryId;
-    }
-
-    public void setCategoryId(Long categoryId) {
-        this.categoryId = categoryId;
-    }
-
-    public Long getAuthorId() {
-        return authorId;
-    }
-
-    public void setAuthorId(Long authorId) {
-        this.authorId = authorId;
-    }
-
-    public Integer getViews() {
-        return views;
-    }
-
-    public void setViews(Integer views) {
-        this.views = views;
-    }
-
-    public String getStatus() {
-        return status;
-    }
-
-    public void setStatus(String status) {
-        this.status = status;
-    }
-
-    public Date getCreatedAt() {
-        return createdAt;
-    }
-
-    public void setCreatedAt(Date createdAt) {
-        this.createdAt = createdAt;
-    }
-
-    public Date getUpdatedAt() {
-        return updatedAt;
-    }
-
-    public void setUpdatedAt(Date updatedAt) {
-        this.updatedAt = updatedAt;
-    }
-
-    public Date getPublishedAt() {
-        return publishedAt;
-    }
-
-    public void setPublishedAt(Date publishedAt) {
-        this.publishedAt = publishedAt;
-    }
-
-    public String getThumbnail() {
-        return thumbnail;
-    }
-
-    public void setThumbnail(String thumbnail) {
-        this.thumbnail = thumbnail;
-    }
-
-    public Boolean getIsFeatured() {
-        return isFeatured;
-    }
-
-    public void setIsFeatured(Boolean isFeatured) {
-        this.isFeatured = isFeatured;
-    }
-
-    public Boolean getIsDeleted() {
-        return isDeleted;
-    }
-
-    public void setIsDeleted(Boolean isDeleted) {
-        this.isDeleted = isDeleted;
-    }
-
+    @TableField(exist = false)
+    private String category;
 }
-

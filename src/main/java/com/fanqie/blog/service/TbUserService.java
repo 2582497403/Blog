@@ -10,6 +10,6 @@ import com.fanqie.blog.entity.TbUser;
  * @since 2025-04-17 10:20:24
  */
 public interface TbUserService extends IService<TbUser> {
-
+    TbUser getCurrentUser();
 }
 

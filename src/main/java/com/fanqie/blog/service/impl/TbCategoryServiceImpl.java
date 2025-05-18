@@ -17,7 +17,7 @@ import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
  * (TbCategory)表服务实现类
  *
  * @author makejava
- * @since 2025-05-08 08:48:49
+ * @since 2025-05-08 11:06:05
  */
 @Service("tbCategoryService")
 public class TbCategoryServiceImpl extends ServiceImpl<TbCategoryMapper, TbCategory> implements TbCategoryService {

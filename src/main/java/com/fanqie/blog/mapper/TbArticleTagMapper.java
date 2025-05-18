@@ -12,7 +12,7 @@ import com.baomidou.mybatisplus.core.mapper.BaseMapper;
  * (TbArticleTag)表数据库访问层
  *
  * @author makejava
- * @since 2025-05-08 08:49:05
+ * @since 2025-05-08 11:06:27
  */
 public interface TbArticleTagMapper extends BaseMapper<TbArticleTag> {
 

@@ -1,8 +1,16 @@
 package com.fanqie.blog.utils;
 
+import com.fanqie.blog.entity.TbUser;
+import com.fanqie.blog.service.TbArticleService;
 import jakarta.servlet.http.HttpServletRequest;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.stereotype.Component;
+
 
 public class WebUtils {
+
     public static String getClientIp(HttpServletRequest request) {
         String ip = request.getHeader("X-Forwarded-For");
         if (ip == null || ip.isEmpty() || "unknown".equalsIgnoreCase(ip)) {
@@ -20,5 +28,6 @@ public class WebUtils {
         }
         return ip;
     }
+
 
 }
