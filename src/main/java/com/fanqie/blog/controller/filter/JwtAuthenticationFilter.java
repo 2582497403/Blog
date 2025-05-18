@@ -66,7 +66,7 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
             }
             // 从 Claims 中获取用户标识，这里假设 subject 存储的是用户 ID
             String userId = claims.getSubject();
-            LoginUser loginUser =  (LoginUser) redisCache.getCacheObject("blog:login:" + userId);
+            LoginUser loginUser = redisCache.getCacheObject("blog:login:" + userId);
             if(Objects.isNull(loginUser)){
                 logger.error(userId+"账号已退出登录 ");
                 sendErrorResponse(response, HttpServletResponse.SC_UNAUTHORIZED, "登录失效，请重新登录");

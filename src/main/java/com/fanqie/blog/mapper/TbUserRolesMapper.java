@@ -3,18 +3,16 @@ package com.fanqie.blog.mapper;
 import com.fanqie.blog.entity.TbUserRoles;
 import org.apache.ibatis.annotations.Param;
 import org.springframework.data.domain.Pageable;
-
 import java.util.List;
-
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 
 /**
  * (TbUserRoles)表数据库访问层
  *
  * @author makejava
- * @since 2025-05-08 08:50:09
+ * @since 2025-05-08 11:06:51
  */
-public interface TbUserRolesMapper extends BaseMapper<TbUserRoles> {
+public interface TbUserRolesMapper extends BaseMapper<TbUserRoles>{
 
     /**
      * 通过ID查询单条数据
@@ -28,7 +26,7 @@ public interface TbUserRolesMapper extends BaseMapper<TbUserRoles> {
      * 查询指定行数据
      *
      * @param tbUserRoles 查询条件
-     * @param pageable    分页对象
+     * @param pageable         分页对象
      * @return 对象列表
      */
     List<TbUserRoles> queryAllByLimit(TbUserRoles tbUserRoles, @Param("pageable") Pageable pageable);

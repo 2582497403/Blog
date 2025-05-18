@@ -3,10 +3,9 @@ package com.fanqie.blog.controller;
 import com.fanqie.blog.entity.TbRolePermissions;
 import com.fanqie.blog.service.TbRolePermissionsService;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
-import org.springframework.http.ResponseEntity;
+import com.fanqie.blog.utils.Result;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.beans.factory.annotation.Autowired;
-
 import java.util.HashMap;
 import java.util.Map;
 
@@ -14,7 +13,7 @@ import java.util.Map;
  * (TbRolePermissions)表控制层
  *
  * @author makejava
- * @since 2025-05-08 08:49:45
+ * @since 2025-05-08 11:06:38
  */
 @RestController
 @RequestMapping("tbRolePermissions")
@@ -24,8 +23,7 @@ public class TbRolePermissionsController {
      */
     @Autowired
     private TbRolePermissionsService tbRolePermissionsService;
-
-    /**
+        /**
      * 通用分页查询接口
      *
      * @param page    当前页
@@ -36,7 +34,7 @@ public class TbRolePermissionsController {
      * @return 分页结果
      */
     @GetMapping("/page")
-    public Page<TbRolePermissions> queryByPage(
+    public Result<Page<TbRolePermissions>> queryByPage(
             @RequestParam(defaultValue = "1") int page,
             @RequestParam(defaultValue = "10") int size,
             @RequestParam(required = false) String orderBy,
@@ -46,7 +44,7 @@ public class TbRolePermissionsController {
         Map<String, Object> params = new HashMap<>();
         params.put("status", status);
 
-        return this.tbRolePermissionsService.queryByPage(page, size, params, orderBy, isAsc);
+        return Result.ok(this.tbRolePermissionsService.queryByPage(page, size, params, orderBy, isAsc));
     }
 
     /**
@@ -56,8 +54,8 @@ public class TbRolePermissionsController {
      * @return 单条数据
      */
     @GetMapping("{id}")
-    public ResponseEntity<TbRolePermissions> queryById(@PathVariable("id") Long id) {
-        return ResponseEntity.ok(this.tbRolePermissionsService.queryById(id));
+    public Result<TbRolePermissions> queryById(@PathVariable("id") Long id) {
+        return Result.ok(this.tbRolePermissionsService.queryById(id));
     }
 
     /**
@@ -67,8 +65,8 @@ public class TbRolePermissionsController {
      * @return 新增结果
      */
     @PostMapping
-    public ResponseEntity<TbRolePermissions> add(TbRolePermissions tbRolePermissions) {
-        return ResponseEntity.ok(this.tbRolePermissionsService.insert(tbRolePermissions));
+    public Result<TbRolePermissions> add(TbRolePermissions tbRolePermissions) {
+        return Result.ok(this.tbRolePermissionsService.insert(tbRolePermissions));
     }
 
     /**
@@ -78,8 +76,8 @@ public class TbRolePermissionsController {
      * @return 编辑结果
      */
     @PutMapping
-    public ResponseEntity<TbRolePermissions> edit(TbRolePermissions tbRolePermissions) {
-        return ResponseEntity.ok(this.tbRolePermissionsService.update(tbRolePermissions));
+    public Result<TbRolePermissions> edit(TbRolePermissions tbRolePermissions) {
+        return Result.ok(this.tbRolePermissionsService.update(tbRolePermissions));
     }
 
     /**
@@ -89,8 +87,8 @@ public class TbRolePermissionsController {
      * @return 删除是否成功
      */
     @DeleteMapping
-    public ResponseEntity<Boolean> deleteById(Long id) {
-        return ResponseEntity.ok(this.tbRolePermissionsService.deleteById(id));
+    public Result<Boolean> deleteById(Long id) {
+        return Result.ok(this.tbRolePermissionsService.deleteById(id));
     }
 
 }

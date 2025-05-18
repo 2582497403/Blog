@@ -8,35 +8,24 @@ import org.springframework.beans.factory.annotation.Autowired;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import org.springframework.util.StringUtils;
-
 import java.util.Map;
-
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 
 /**
  * (TbTag)表服务实现类
  *
  * @author makejava
- * @since 2025-05-08 08:49:58
+ * @since 2025-05-08 11:06:47
  */
 @Service("tbTagService")
 public class TbTagServiceImpl extends ServiceImpl<TbTagMapper, TbTag> implements TbTagService {
     @Autowired
     private TbTagMapper tbTagMapper;
 
-    /**
-     * 通过ID查询单条数据
-     *
-     * @param id 主键
-     * @return 实例对象
-     */
-    @Override
-    public TbTag queryById(Long id) {
-        return this.tbTagMapper.queryById(id);
-    }
 
     /**
      * 分页查询
+     *
      */
     @Override
     public Page<TbTag> queryByPage(int page, int size, Map<String, Object> params, String orderBy, boolean isAsc) {
@@ -85,7 +74,7 @@ public class TbTagServiceImpl extends ServiceImpl<TbTagMapper, TbTag> implements
     @Override
     public TbTag update(TbTag tbTag) {
         this.tbTagMapper.update(tbTag);
-        return this.queryById(tbTag.getId());
+        return this.tbTagMapper.selectById(tbTag);
     }
 
     /**

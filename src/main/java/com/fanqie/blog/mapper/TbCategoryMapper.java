@@ -12,7 +12,7 @@ import com.baomidou.mybatisplus.core.mapper.BaseMapper;
  * (TbCategory)表数据库访问层
  *
  * @author makejava
- * @since 2025-05-08 08:48:49
+ * @since 2025-05-08 11:06:05
  */
 public interface TbCategoryMapper extends BaseMapper<TbCategory> {
 

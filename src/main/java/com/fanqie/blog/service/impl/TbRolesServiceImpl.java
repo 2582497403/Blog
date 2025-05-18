@@ -8,16 +8,14 @@ import org.springframework.beans.factory.annotation.Autowired;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import org.springframework.util.StringUtils;
-
 import java.util.Map;
-
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 
 /**
  * (TbRoles)表服务实现类
  *
  * @author makejava
- * @since 2025-05-08 08:52:59
+ * @since 2025-05-08 11:06:42
  */
 @Service("tbRolesService")
 public class TbRolesServiceImpl extends ServiceImpl<TbRolesMapper, TbRoles> implements TbRolesService {
@@ -37,6 +35,7 @@ public class TbRolesServiceImpl extends ServiceImpl<TbRolesMapper, TbRoles> impl
 
     /**
      * 分页查询
+     *
      */
     @Override
     public Page<TbRoles> queryByPage(int page, int size, Map<String, Object> params, String orderBy, boolean isAsc) {

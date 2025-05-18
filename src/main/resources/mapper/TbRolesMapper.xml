@@ -7,18 +7,14 @@
         <result property="name" column="name" jdbcType="VARCHAR"/>
         <result property="code" column="code" jdbcType="VARCHAR"/>
         <result property="description" column="description" jdbcType="VARCHAR"/>
-        <result property="createdAt" column="created_at" jdbcType="TIMESTAMP"/>
-        <result property="updatedAt" column="updated_at" jdbcType="TIMESTAMP"/>
+        <result property="createTime" column="create_time" jdbcType="TIMESTAMP"/>
+        <result property="updateTime" column="update_time" jdbcType="TIMESTAMP"/>
     </resultMap>
 
     <!--查询单个-->
     <select id="queryById" resultMap="TbRolesMap">
-        select id,
-               name,
-               code,
-               description,
-               created_at,
-               updated_at
+        select
+id, name, code, description, create_time, update_time
         from tb_roles
         where id = #{id}
     </select>
@@ -26,7 +22,7 @@
     <!--查询指定行数据-->
     <select id="queryAllByLimit" resultMap="TbRolesMap">
         select
-        id, name, code, description, created_at, updated_at
+id, name, code, description, create_time, update_time
         from tb_roles
         <where>
             <if test="id != null">
@@ -41,11 +37,11 @@
             <if test="description != null and description != ''">
                 and description = #{description}
             </if>
-            <if test="createdAt != null">
-                and created_at = #{createdAt}
+            <if test="createTime != null">
+                and create_time = #{createTime}
             </if>
-            <if test="updatedAt != null">
-                and updated_at = #{updatedAt}
+            <if test="updateTime != null">
+                and update_time = #{updateTime}
             </if>
         </where>
         limit #{pageable.offset}, #{pageable.pageSize}
@@ -68,41 +64,41 @@
             <if test="description != null and description != ''">
                 and description = #{description}
             </if>
-            <if test="createdAt != null">
-                and created_at = #{createdAt}
+            <if test="createTime != null">
+                and create_time = #{createTime}
             </if>
-            <if test="updatedAt != null">
-                and updated_at = #{updatedAt}
+            <if test="updateTime != null">
+                and update_time = #{updateTime}
             </if>
         </where>
     </select>
 
     <!--新增所有列-->
     <insert id="insert" keyProperty="id" useGeneratedKeys="true">
-        insert into tb_roles(name, code, description, created_at, updated_at)
-        values (#{name}, #{code}, #{description}, #{createdAt}, #{updatedAt})
+        insert into tb_roles(name, code, description, create_time, update_time)
+        values (#{name}, #{code}, #{description}, #{createTime}, #{updateTime})
     </insert>
 
     <insert id="insertBatch" keyProperty="id" useGeneratedKeys="true">
-        insert into tb_roles(name, code, description, created_at, updated_at)
+        insert into tb_roles(name, code, description, create_time, update_time)
         values
         <foreach collection="entities" item="entity" separator=",">
-            (#{entity.name}, #{entity.code}, #{entity.description}, #{entity.createdAt}, #{entity.updatedAt})
+        (#{entity.name}, #{entity.code}, #{entity.description}, #{entity.createTime}, #{entity.updateTime})
         </foreach>
     </insert>
 
     <insert id="insertOrUpdateBatch" keyProperty="id" useGeneratedKeys="true">
-        insert into tb_roles(name, code, description, created_at, updated_at)
+        insert into tb_roles(name, code, description, create_time, update_time)
         values
         <foreach collection="entities" item="entity" separator=",">
-            (#{entity.name}, #{entity.code}, #{entity.description}, #{entity.createdAt}, #{entity.updatedAt})
+            (#{entity.name}, #{entity.code}, #{entity.description}, #{entity.createTime}, #{entity.updateTime})
         </foreach>
         on duplicate key update
-        name = values(name),
-        code = values(code),
-        description = values(description),
-        created_at = values(created_at),
-        updated_at = values(updated_at)
+name = values(name),
+code = values(code),
+description = values(description),
+create_time = values(create_time),
+update_time = values(update_time)
     </insert>
 
     <!--通过主键修改数据-->
@@ -118,11 +114,11 @@
             <if test="description != null and description != ''">
                 description = #{description},
             </if>
-            <if test="createdAt != null">
-                created_at = #{createdAt},
+            <if test="createTime != null">
+                create_time = #{createTime},
             </if>
-            <if test="updatedAt != null">
-                updated_at = #{updatedAt},
+            <if test="updateTime != null">
+                update_time = #{updateTime},
             </if>
         </set>
         where id = #{id}
@@ -130,9 +126,7 @@
 
     <!--通过主键删除-->
     <delete id="deleteById">
-        delete
-        from tb_roles
-        where id = #{id}
+        delete from tb_roles where id = #{id}
     </delete>
 
 </mapper>

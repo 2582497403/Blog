@@ -18,7 +18,7 @@ import java.io.Serializable;
 @Data
 public class TbUser extends Model<TbUser> {
 
-    private Integer id;
+    private Long id;
     //用户名
     private String username;
     //密码

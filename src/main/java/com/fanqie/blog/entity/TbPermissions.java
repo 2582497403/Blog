@@ -3,14 +3,17 @@ package com.fanqie.blog.entity;
 import java.util.Date;
 import java.io.Serializable;
 
+import lombok.Data;
+
 /**
  * (TbPermissions)实体类
  *
  * @author makejava
- * @since 2025-05-08 08:52:43
+ * @since 2025-05-08 11:06:33
  */
+@Data
 public class TbPermissions implements Serializable {
-    private static final long serialVersionUID = -18089420940289977L;
+    private static final long serialVersionUID = 450658695628668446L;
 
     private Long id;
     /**

@@ -6,17 +6,16 @@
         <result property="id" column="id" jdbcType="INTEGER"/>
         <result property="name" column="name" jdbcType="VARCHAR"/>
         <result property="slug" column="slug" jdbcType="VARCHAR"/>
-        <result property="createdAt" column="created_at" jdbcType="TIMESTAMP"/>
-        <result property="updatedAt" column="updated_at" jdbcType="TIMESTAMP"/>
+        <result property="createTime" column="create_time" jdbcType="TIMESTAMP"/>
+        <result property="updateTime" column="update_time" jdbcType="TIMESTAMP"/>
+        <result property="color" column="color" jdbcType="VARCHAR"/>
+        <result property="sort" column="sort" jdbcType="VARCHAR"/>
     </resultMap>
 
     <!--查询单个-->
     <select id="queryById" resultMap="TbTagMap">
-        select id,
-               name,
-               slug,
-               created_at,
-               updated_at
+        select
+id, name, slug, create_time, update_time, color, sort
         from tb_tag
         where id = #{id}
     </select>
@@ -24,7 +23,7 @@
     <!--查询指定行数据-->
     <select id="queryAllByLimit" resultMap="TbTagMap">
         select
-        id, name, slug, created_at, updated_at
+id, name, slug, create_time, update_time, color, sort
         from tb_tag
         <where>
             <if test="id != null">
@@ -36,11 +35,17 @@
             <if test="slug != null and slug != ''">
                 and slug = #{slug}
             </if>
-            <if test="createdAt != null">
-                and created_at = #{createdAt}
+            <if test="createTime != null">
+                and create_time = #{createTime}
             </if>
-            <if test="updatedAt != null">
-                and updated_at = #{updatedAt}
+            <if test="updateTime != null">
+                and update_time = #{updateTime}
+            </if>
+            <if test="color != null and color != ''">
+                and color = #{color}
+            </if>
+            <if test="sort != null and sort != ''">
+                and sort = #{sort}
             </if>
         </where>
         limit #{pageable.offset}, #{pageable.pageSize}
@@ -60,40 +65,48 @@
             <if test="slug != null and slug != ''">
                 and slug = #{slug}
             </if>
-            <if test="createdAt != null">
-                and created_at = #{createdAt}
+            <if test="createTime != null">
+                and create_time = #{createTime}
             </if>
-            <if test="updatedAt != null">
-                and updated_at = #{updatedAt}
+            <if test="updateTime != null">
+                and update_time = #{updateTime}
+            </if>
+            <if test="color != null and color != ''">
+                and color = #{color}
+            </if>
+            <if test="sort != null and sort != ''">
+                and sort = #{sort}
             </if>
         </where>
     </select>
 
     <!--新增所有列-->
     <insert id="insert" keyProperty="id" useGeneratedKeys="true">
-        insert into tb_tag(name, slug, created_at, updated_at)
-        values (#{name}, #{slug}, #{createdAt}, #{updatedAt})
+        insert into tb_tag(name, slug, create_time, update_time, color, sort)
+        values (#{name}, #{slug}, #{createTime}, #{updateTime}, #{color}, #{sort})
     </insert>
 
     <insert id="insertBatch" keyProperty="id" useGeneratedKeys="true">
-        insert into tb_tag(name, slug, created_at, updated_at)
+        insert into tb_tag(name, slug, create_time, update_time, color, sort)
         values
         <foreach collection="entities" item="entity" separator=",">
-            (#{entity.name}, #{entity.slug}, #{entity.createdAt}, #{entity.updatedAt})
+        (#{entity.name}, #{entity.slug}, #{entity.createTime}, #{entity.updateTime}, #{entity.color}, #{entity.sort})
         </foreach>
     </insert>
 
     <insert id="insertOrUpdateBatch" keyProperty="id" useGeneratedKeys="true">
-        insert into tb_tag(name, slug, created_at, updated_at)
+        insert into tb_tag(name, slug, create_time, update_time, color, sort)
         values
         <foreach collection="entities" item="entity" separator=",">
-            (#{entity.name}, #{entity.slug}, #{entity.createdAt}, #{entity.updatedAt})
+            (#{entity.name}, #{entity.slug}, #{entity.createTime}, #{entity.updateTime}, #{entity.color}, #{entity.sort})
         </foreach>
         on duplicate key update
-        name = values(name),
-        slug = values(slug),
-        created_at = values(created_at),
-        updated_at = values(updated_at)
+name = values(name),
+slug = values(slug),
+create_time = values(create_time),
+update_time = values(update_time),
+color = values(color),
+sort = values(sort)
     </insert>
 
     <!--通过主键修改数据-->
@@ -106,11 +119,17 @@
             <if test="slug != null and slug != ''">
                 slug = #{slug},
             </if>
-            <if test="createdAt != null">
-                created_at = #{createdAt},
+            <if test="createTime != null">
+                create_time = #{createTime},
             </if>
-            <if test="updatedAt != null">
-                updated_at = #{updatedAt},
+            <if test="updateTime != null">
+                update_time = #{updateTime},
+            </if>
+            <if test="color != null and color != ''">
+                color = #{color},
+            </if>
+            <if test="sort != null and sort != ''">
+                sort = #{sort},
             </if>
         </set>
         where id = #{id}
@@ -118,9 +137,7 @@
 
     <!--通过主键删除-->
     <delete id="deleteById">
-        delete
-        from tb_tag
-        where id = #{id}
+        delete from tb_tag where id = #{id}
     </delete>
 
 </mapper>
